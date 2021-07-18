@@ -56,9 +56,10 @@ class Counter extends React.Component {
                     type="addition"
                     click={this.handleMathClick}
                 />
-
-                <h1>Number of clicks: {this.state.count} </h1>
-                <h1> Score: {this.state.score} </h1>
+                <ResultPanel
+                    count={this.state.count}
+                    score={this.state.score}
+                />
             </>
         )
     }
@@ -68,6 +69,16 @@ const MathButton = (props) => {
     const number = parseInt(props.number)
     return (
         <button onClick={() => props.click(props.type, number)}> {props.name} </button>
+    )
+}
+
+const ResultPanel = (props) => {
+    return (
+        <>
+            <h1>Number of clicks: {props.count} {props.count > 10 ?
+                <span> Warning! Too many clicks! </span> : null}</h1>
+            <h1> Score: {props.score} </h1>
+        </>
     )
 }
 
