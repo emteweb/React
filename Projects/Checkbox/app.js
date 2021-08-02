@@ -2,21 +2,35 @@ const PositiveMessage = () => <p> You can watch this movie. </p>
 
 const NegativeMessage = () => <p> You are not allowed to watch the movie if you're under 16! </p>
 
-class CheckboxAgeConfirmation extends React.Component {
+class TicketShop extends React.Component {
     state = {
-        isConfirmed: false
+        isConfirmed: false,
+        isFormSubmitted: false
     }
 
     handleCheckboxChange = () => {
         this.setState({
-            isConfirmed: !this.state.isConfirmed
+            isConfirmed: !this.state.isConfirmed,
+            isFormSubmitted: false
         })
     }
     displayMessage = () => {
-        if (this.state.isConfirmed) {
-            return <PositiveMessage />
+        if (this.state.isFormSubmitted) {
+            if (this.state.isConfirmed) {
+                return <PositiveMessage />
+            } else {
+                return <NegativeMessage />
+            }
         } else {
-            return <NegativeMessage />
+            return null
+        }
+    }
+    handleFormSubmit = (e) => {
+        e.preventDefault()
+        if (!this.state.isFormSubmitted) {
+            this.setState({
+                isFormSubmitted: true
+            })
         }
     }
     render() {
@@ -24,8 +38,12 @@ class CheckboxAgeConfirmation extends React.Component {
         return (
             <>
                 <h1> Buy a ticket for a horror movie :O </h1>
-                <input type="checkbox" id="age" onChange={this.handleCheckboxChange} checked={this.state.isConfirmed} />
-                <label htmlFor="age">I am at least 16 years old.</label>
+                <form onSubmit={this.handleFormSubmit}>
+                    <input type="checkbox" id="age" onChange={this.handleCheckboxChange} checked={this.state.isConfirmed} />
+                    <label htmlFor="age">I am at least 16 years old.</label>
+                    <br />
+                    <button type="submit"> Buy a ticket </button>
+                </form>
                 {this.displayMessage()}
             </>
         )
@@ -33,4 +51,4 @@ class CheckboxAgeConfirmation extends React.Component {
     }
 }
 
-ReactDOM.render(<CheckboxAgeConfirmation />, document.getElementById("root"));
+ReactDOM.render(<TicketShop />, document.getElementById("root"));
