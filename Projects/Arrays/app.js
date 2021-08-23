@@ -3,17 +3,32 @@ const data = {
         {
             id: 1,
             age: 29,
-            name: "John"
+            name: "John",
+            sex: "male"
         },
         {
             id: 2,
             age: 39,
-            name: "Mark"
+            name: "Mark",
+            sex: "male"
         },
         {
             id: 3,
             age: 19,
-            name: "Kate"
+            name: "Kate",
+            sex: "female"
+        },
+        {
+            id: 4,
+            age: 44,
+            name: "David",
+            sex: "male"
+        },
+        {
+            id: 5,
+            age: 18,
+            name: "Lucy",
+            sex: "female"
         },
     ]
 }
@@ -26,19 +41,18 @@ const data = {
 ) */
 
 const Item = ({ user }) => ( // we take specific prop
-    <div>
-        <h1>User {user.name}</h1>
-        <h2>is {user.age}</h2>
+    <div className="userInfo">
+        <h1>{user.name}</h1>
+        <p>Age: <strong> {user.age} </strong></p>
+        <p>Sex: {user.sex}</p>
     </div>
 )
 
 class ListItems extends React.Component {
 
-    /* state = {
-        items: ["apple", "pear", "banana"]
-    } */
     render() {
-        const users = this.props.data.users;
+        let users = this.props.data.users;
+        users = users.filter((user) => user.sex === "female")
         const Items = users.map(user => <Item key={user.id} user={user} />)
         return (
             <ul>
