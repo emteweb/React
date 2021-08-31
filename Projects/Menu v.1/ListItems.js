@@ -1,10 +1,12 @@
 const ListItems = (props) => {
     const order = props.items.map(item => (
-<Item 
-key = {item.id}
-name = {item.name}
-active = {item.active}
-/>
+        <Item
+            key={item.id} // key is not transferred to props
+            id={item.id} // to have "id" in props
+            name={item.name}
+            active={item.active}
+            changeStatus={props.changeStatus}
+        />
     ))
     return (
         <div className="list">
