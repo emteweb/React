@@ -5,49 +5,42 @@ class Form extends React.Component {
         isLiked: true,
         number: 0
     }
-    handleCityChange = e => {
-        this.setState({
-            city: e.target.value
-        })
-    }
-    handleTextChange = e => {
-        this.setState({
-            text: e.target.value
-        })
-    }
-
-    handleCheckboxChange = e => {
-        this.setState({
-            isLiked: e.target.checked
+    handleChange = e => {
+        console.log(e.target.name)
+        console.log(e.target.type)
+        if (e.target.type === "checkbox") {
+            this.setState({
+                [e.target.name]: e.target.checked
+            })
         }
-        )
-    }
+        else {
+            this.setState({
+                [e.target.name]: e.target.value // in SQUARE brackets when we give a string in properties of an object
+            })
+        }
 
-    handleVisitsChange(e) {
-        this.setState({
-            number: e.target.value
-        })
     }
     render() {
         return (
             <div>
                 <label>
                     City name:
-                    <input value={this.state.city} onChange={this.handleCityChange} type="text" />
+                    <input name="city" value={this.state.city} onChange={this.handleChange} type="text" />
                 </label>
                 <br />
                 <label>
                     A few words about the city:
-                <textarea value={this.state.text} onChange={this.handleTextChange}></textarea>
+                <textarea name="text" value={this.state.text} onChange={this.handleChange}></textarea>
                 </label>
                 <br />
                 <label>
                     Do you like the city?
-                    <input type="checkbox" checked={this.state.isLiked} onChange={this.handleCheckboxChange} />
+                    <input name="isLiked" type="checkbox" checked={this.state.isLiked} onChange={this.handleChange} />
                 </label>
                 <br />
                 <label>
-                    <select value={this.state.number} onChange={this.handleVisitsChange.bind(this)}>
+                    How many times did you visit this place?
+                    <select name="number" value={this.state.number} onChange={this.handleChange}>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
