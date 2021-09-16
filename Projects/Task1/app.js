@@ -27,7 +27,9 @@ class Showbox extends React.Component {
                 isActive: false,
             },
         ],
-        chosen: null
+        chosen: null,
+        easyMsgs: ["Ann", "Bart", "Celine"],
+        value: ""
     }
 
 
@@ -38,10 +40,12 @@ class Showbox extends React.Component {
             if (msg.isActive) return msg
         });
 
-        const index = Math.floor(Math.random() * activeMsg.length);
+        // const index = Math.floor(Math.random() * activeMsg.length);
+        const index = Math.floor(Math.random() * this.state.easyMsgs.length);
 
         this.setState({
-            chosen: activeMsg[index].text
+            // chosen: activeMsg[index].text
+            chosen: this.state.easyMsgs[index]
         })
 
         // activeMsg.forEach(m => {
@@ -49,8 +53,23 @@ class Showbox extends React.Component {
         // })
     }
 
-    handleAddMessage = () => {
+    handleInputChange = e => {
+        this.setState({
+            value: e.target.value
+        })
+    }
 
+    handleAddMessage = () => {
+        if (this.state.value === "") return alert('Enter a message!');
+        const newText = this.state.value;
+        const msgs = [...this.state.easyMsgs] // we create a copy of an array
+        msgs.push(newText);
+        // const msgs = this.state.easyMsgs.concat(newText) // another way of creating a new array
+
+        this.setState({
+            easyMsgs: msgs,
+            value: ""
+        })
     }
 
     render() {
@@ -58,7 +77,7 @@ class Showbox extends React.Component {
             <>
                 <button id="btn" onClick={this.handleShowMessage} > Show a message </button>
                 <br />
-                <input type="text"></input>
+                <input id="newTxt" type="text" value={this.state.value} onChange={this.handleInputChange}></input>
                 <button onClick={this.handleAddMessage}>Add a message</button>
                 {this.state.chosen ? <h1>{this.state.chosen}</h1> : null}
                 {/* <h1>{this.state.chosen}</h1> */}
