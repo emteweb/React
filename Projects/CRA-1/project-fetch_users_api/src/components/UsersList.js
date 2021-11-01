@@ -1,14 +1,18 @@
 import React from 'react';
+import './UsersList.css'
 
 const UsersList = (props) => {
     const users = props.users.map(user => (
-        <div key={user.login.uuid}>
-            <h4>{`${user.name.title} ${user.name.last}`}</h4>
-            <p>{user.email}</p>
-        </div>
+        
+            <li key={user.login.uuid}>
+                <img src={user.picture.medium} alt={user.name.last}/>
+                <h4>{`${user.name.title} ${user.name.last}`}</h4>
+                <p>{user.email}</p>
+            </li>
+        
     ))
     return (
-        <ul>
+        <ul className="users">
             {users}
         </ul>
     );
